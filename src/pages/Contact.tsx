@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Phone, Mail, Clock, AlertCircle } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useFormValidation } from "@/hooks/use-form-validation";
 import { useMetaTags } from "@/hooks/use-meta-tags";
+import toastNotifications from "@/lib/toast-notifications";
 
 const Contact = () => {
   useMetaTags({
@@ -16,7 +16,6 @@ const Contact = () => {
       "Get in touch with Spice Terra. Visit us, call us, or send us a message. We'd love to hear from you.",
   });
 
-  const { toast } = useToast();
   const { formData, errors, touched, handleChange, handleBlur, isValid, resetForm } = useFormValidation(
     { name: "", email: "", phone: "", message: "" },
     {
@@ -31,19 +30,12 @@ const Contact = () => {
     e.preventDefault();
 
     if (!isValid) {
-      toast({
-        title: "Validation Error",
-        description: "Please correct the errors in your form.",
-        variant: "destructive",
-      });
+      toastNotifications.error("Validation Error", "Please correct the errors in your form.");
       return;
     }
 
     // Simulate form submission
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you soon.",
-    });
+    toastNotifications.success("Message Sent!", "Thank you for contacting us. We'll get back to you soon.");
 
     // Reset form
     resetForm();
@@ -80,13 +72,13 @@ const Contact = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-warm">
-        <div className="container mx-auto px-4">
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 bg-gradient-warm">
+        <div className="container mx-auto px-3 sm:px-4">
           <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 text-gradient">
               Get in Touch
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed px-2">
               We'd love to hear from you. Whether you have a question about our menu, 
               services, or anything else, our team is ready to answer all your questions.
             </p>
@@ -95,22 +87,22 @@ const Contact = () => {
       </section>
 
       {/* Contact Info Cards */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <section className="py-12 sm:py-16">
+        <div className="container mx-auto px-3 sm:px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16">
             {contactInfo.map((info, index) => (
               <Card
                 key={info.title}
                 className="hover-lift animate-fade-in-up border-border/50"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <CardContent className="p-6 text-center">
-                  <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-full mb-4">
-                    <info.icon className="w-7 h-7 text-primary" />
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-primary/10 rounded-full mb-3 sm:mb-4">
+                    <info.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                   </div>
-                  <h3 className="text-lg font-bold mb-3">{info.title}</h3>
+                  <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-3">{info.title}</h3>
                   {info.details.map((detail, idx) => (
-                    <p key={idx} className="text-muted-foreground text-sm">
+                    <p key={idx} className="text-muted-foreground text-xs sm:text-sm">
                       {detail}
                     </p>
                   ))}
@@ -120,10 +112,10 @@ const Contact = () => {
           </div>
 
           {/* Contact Form and Map */}
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
             {/* Contact Form */}
             <div className="animate-fade-in-up">
-              <h2 className="text-3xl font-bold mb-6">Send Us a Message</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Send Us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">

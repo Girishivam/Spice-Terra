@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Minus, Plus, ShoppingCart, Trash2, Check, AlertCircle } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { useFormValidation } from "@/hooks/use-form-validation";
 import { useMetaTags } from "@/hooks/use-meta-tags";
 import { useCart } from "@/contexts/CartContext";
+import toastNotifications from "@/lib/toast-notifications";
 import butterChicken from "@/assets/dish-butter-chicken.jpg";
 import biryani from "@/assets/dish-biryani.jpg";
 import naan from "@/assets/dish-naan.jpg";
@@ -28,7 +28,6 @@ const Order = () => {
       "Order your favorite authentic Indian dishes online for delivery to your doorstep.",
   });
 
-  const { toast } = useToast();
   const { cart: contextCart, addToCart: addToContextCart, removeFromCart: removeFromContextCart, updateQuantity: updateContextQuantity, clearCart } = useCart();
   const [step, setStep] = useState(1);
   const [cart, setCart] = useState<CartItem[]>(contextCart);
@@ -87,11 +86,12 @@ const Order = () => {
         )
       );
       addToContextCart({ ...item, quantity: newQuantity });
+      toastNotifications.cartUpdated(item.name, newQuantity);
     } else {
       setCart([...cart, { ...item, quantity: 1 }]);
       addToContextCart({ ...item, quantity: 1 });
+      toastNotifications.cartAdded(item.name, 1);
     }
-    toast({ title: "Added to cart", description: `${item.name} added successfully` });
   };
 
   const updateQuantity = (id: number, delta: number) => {
@@ -112,21 +112,22 @@ const Order = () => {
   };
 
   const removeFromCart = (id: number) => {
+    const item = cart.find((i) => i.id === id);
     setCart(cart.filter((item) => item.id !== id));
     removeFromContextCart(id);
+    if (item) {
+      toastNotifications.cartRemoved(item.name);
+    }
   };
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckout = () => {
     if (!isValid) {
-      toast({
-        title: "Validation Error",
-        description: "Please correct the errors in your form.",
-        variant: "destructive",
-      });
+      toastNotifications.error("Validation Error", "Please correct the errors in your form.");
       return;
     }
+    toastNotifications.orderConfirmed(`SPT-${Math.floor(Math.random() * 10000)}`);
     setStep(4);
   };
 

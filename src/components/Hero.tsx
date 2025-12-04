@@ -21,23 +21,23 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up">
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight break-words">
             Where Tradition Meets
             <span className="block text-accent">Authentic Flavors</span>
           </h1>
 
           {/* Subheading */}
-          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed px-2">
             Experience the rich heritage of Indian cuisine in a warm, rustic ambiance. 
             Every dish tells a story of tradition, passion, and authentic spices.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-6 px-2">
             <Button
               asChild
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-6 text-lg shadow-glow"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-semibold px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg shadow-glow"
             >
               <Link to="/menu" data-scroll-top>
                 Explore Our Menu
@@ -47,26 +47,25 @@ const Hero = () => {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-brown-deep font-semibold px-8 py-6 text-lg"
+              className="w-full sm:w-auto bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-brown-deep font-semibold px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg"
             >
               <Link to="/booking" data-scroll-top>Reserve a Table</Link>
             </Button>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12">
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-2xl mx-auto pt-8 sm:pt-12 px-2">
             <div className="text-center">
-              <div className="text-4xl font-bold text-accent">5+</div>
-              <div className="text-sm text-gray-300 mt-1">Years Experience</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent">5+</div>
+              <div className="text-xs sm:text-sm text-gray-300 mt-1">Years<br/>Experience</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-accent">100+</div>
-              <div className="text-sm text-gray-300 mt-1">Authentic Dishes</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent">100+</div>
+              <div className="text-xs sm:text-sm text-gray-300 mt-1">Authentic<br/>Dishes</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-accent">15k+</div>
-              <div className="text-sm text-gray-300 mt-1">Happy Guests</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent">15k+</div>
+              <div className="text-xs sm:text-sm text-gray-300 mt-1">Happy<br/>Guests</div>
             </div>
           </div>
         </div>

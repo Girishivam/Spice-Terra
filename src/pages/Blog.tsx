@@ -74,13 +74,13 @@ const Blog = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-warm">
-        <div className="container mx-auto px-4">
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 bg-gradient-warm">
+        <div className="container mx-auto px-3 sm:px-4">
           <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 text-gradient">
               Our Blog
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed px-2">
               Stories, recipes, and insights from the heart of Indian cuisine
             </p>
           </div>

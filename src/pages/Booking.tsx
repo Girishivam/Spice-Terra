@@ -6,9 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Check, Users, Calendar as CalendarIcon, Clock, AlertCircle } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { useFormValidation } from "@/hooks/use-form-validation";
 import { useMetaTags } from "@/hooks/use-meta-tags";
+import toastNotifications from "@/lib/toast-notifications";
 
 const Booking = () => {
   useMetaTags({
@@ -17,7 +17,6 @@ const Booking = () => {
       "Reserve your table at Spice Terra. Quick and easy booking in just a few steps.",
   });
 
-  const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [guests, setGuests] = useState(2);
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -47,33 +46,31 @@ const Booking = () => {
 
   const handleSubmit = () => {
     if (!isValid) {
-      toast({
-        title: "Validation Error",
-        description: "Please correct the errors in your form.",
-        variant: "destructive",
-      });
+      toastNotifications.error("Validation Error", "Please correct the errors in your form.");
       return;
     }
 
+    const dateStr = date?.toLocaleDateString() || "Selected date";
+    toastNotifications.bookingConfirmed(dateStr, time);
     setStep(5);
   };
 
   const StepIndicator = () => (
-    <div className="flex items-center justify-center space-x-4 mb-12">
+    <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-4 mb-8 sm:mb-12 flex-wrap">
       {[1, 2, 3, 4].map((s) => (
-        <div key={s} className="flex items-center">
+        <div key={s} className="flex items-center gap-1 sm:gap-2">
           <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all ${
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold transition-all text-xs sm:text-base ${
               step >= s
                 ? "bg-primary text-primary-foreground"
                 : "bg-muted text-muted-foreground"
             }`}
           >
-            {step > s ? <Check className="w-5 h-5" /> : s}
+            {step > s ? <Check className="w-4 h-4 sm:w-5 sm:h-5" /> : s}
           </div>
           {s < 4 && (
             <div
-              className={`w-16 h-1 transition-colors ${
+              className={`w-6 h-0.5 sm:w-8 md:w-16 transition-colors hidden sm:block ${
                 step > s ? "bg-primary" : "bg-muted"
               }`}
             />
@@ -87,14 +84,14 @@ const Booking = () => {
     <div className="min-h-screen">
       <Navbar />
 
-      <section className="pt-32 pb-20 min-h-screen">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12 animate-fade-in-up">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient">
+      <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 min-h-screen">
+        <div className="container mx-auto px-3 sm:px-4">
+          <div className="max-w-2xl sm:max-w-4xl mx-auto">
+            <div className="text-center mb-8 sm:mb-12 animate-fade-in-up">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 text-gradient">
                 Reserve Your Table
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-base sm:text-xl text-muted-foreground">
                 Book your dining experience in just a few steps
               </p>
             </div>
@@ -202,17 +199,17 @@ const Booking = () => {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-3 md:grid-cols-4 gap-3 mb-8">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 mb-8">
                     {timeSlots.map((slot) => (
                       <Button
                         key={slot}
                         variant={time === slot ? "default" : "outline"}
                         onClick={() => setTime(slot)}
-                        className={
+                        className={`text-sm sm:text-base py-2 sm:py-auto ${
                           time === slot
                             ? "bg-primary hover:bg-primary/90"
                             : "hover:border-primary"
-                        }
+                        }`}
                       >
                         {slot}
                       </Button>
