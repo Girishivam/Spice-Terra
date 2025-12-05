@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, Send, MessageCircle, HelpCircle, FileText } from "lucide-react";
+import { X, Download, Send, HelpCircle, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/contexts/CartContext";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 interface WhatsAppModalProps {
   isOpen: boolean;
@@ -23,7 +24,7 @@ const WhatsAppModal = ({ isOpen, onClose, orderData }: WhatsAppModalProps) => {
   const [message, setMessage] = useState("");
   const [hasOrder, setHasOrder] = useState(false);
 
-  const restaurantPhone = "919876543210"; // Replace with your actual phone number
+  const restaurantPhone = "6394993583"; // Replace with your actual phone number
   const restaurantName = "Spice Terra";
 
   useEffect(() => {
@@ -149,7 +150,7 @@ const WhatsAppModal = ({ isOpen, onClose, orderData }: WhatsAppModalProps) => {
             {/* Header */}
             <div className="sticky top-0 bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-t-3xl flex items-center justify-between z-10">
               <div className="flex items-center gap-3">
-                <MessageCircle className="w-6 h-6" />
+                <WhatsAppIcon className="w-6 h-6" />
                 <div>
                   <h2 className="text-xl font-bold">WhatsApp Support</h2>
                   <p className="text-sm text-green-50">Direct connection to {restaurantName}</p>

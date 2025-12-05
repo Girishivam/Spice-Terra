@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import WhatsAppModal from "./WhatsAppModal";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 const FloatingContactCTA = () => {
-  const restaurantPhone = "+919876543210"; // Replace with your actual phone
+  const restaurantPhone = "+6394993583"; // Replace with your actual phone
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false);
 
   const contacts = [
@@ -18,7 +19,7 @@ const FloatingContactCTA = () => {
       action: "link",
     },
     {
-      icon: MessageCircle,
+      icon: WhatsAppIcon,
       label: "WhatsApp",
       href: "#",
       color: "bg-blue-500",
@@ -30,6 +31,21 @@ const FloatingContactCTA = () => {
   const handleContactClick = (contact: any) => {
     if (contact.action === "modal") {
       setIsWhatsAppOpen(true);
+      return;
+    }
+
+    // For link actions, open the href. For tel: links use location.href so mobile opens dialer.
+    if (contact.action === "link" && contact.href) {
+      try {
+        if (contact.href.startsWith("tel:")) {
+          window.location.href = contact.href;
+        } else {
+          window.open(contact.href, "_blank");
+        }
+      } catch (e) {
+        // fallback
+        window.open(contact.href, "_blank");
+      }
     }
   };
 
@@ -47,11 +63,6 @@ const FloatingContactCTA = () => {
           <motion.button
             key={contact.label}
             onClick={() => handleContactClick(contact)}
-            onAuxClick={() => {
-              if (contact.action === "link") {
-                window.open(contact.href, "_blank");
-              }
-            }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className={`${contact.color} ${contact.hoverColor} p-3 rounded-full text-white shadow-lg transition-all cursor-pointer`}

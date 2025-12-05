@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,6 +79,11 @@ const Navbar = () => {
       },
     }),
   };
+
+  // Type assertions for framer-motion to satisfy TypeScript's stricter types
+  const _backdropVariants = backdropVariants as Variants;
+  const _menuVariants = menuVariants as Variants;
+  const _itemVariants = itemVariants as any;
 
   return (
     <nav
@@ -170,7 +176,7 @@ const Navbar = () => {
               <>
                 {/* Backdrop (clicking it closes the menu) */}
                 <motion.div
-                  variants={backdropVariants}
+                  variants={_backdropVariants}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -180,7 +186,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu Slide rendered above navbar */}
                 <motion.div
-                  variants={menuVariants}
+                  variants={_menuVariants}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -201,7 +207,7 @@ const Navbar = () => {
                         <motion.div
                           key={link.path}
                           custom={index}
-                          variants={itemVariants}
+                          variants={_itemVariants}
                           initial="hidden"
                           animate="visible"
                         >
