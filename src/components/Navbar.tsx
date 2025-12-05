@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -162,109 +163,108 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu with Backdrop */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              variants={backdropVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              // Visual backdrop stays, but don't let it intercept pointer events so FAB stays clickable
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm lg:hidden z-30 pointer-events-none"
-            />
-
-            {/* Mobile Menu Slide */}
-            <motion.div
-              variants={menuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              // Ensure the menu receives pointer events and stops clicks reaching the backdrop
-              className="fixed top-20 right-0 bottom-0 w-full max-w-xs bg-background shadow-2xl lg:hidden z-[110] overflow-y-auto pointer-events-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="p-6 space-y-4 relative">
-                {/* Internal close button so backdrop clicks are not required to close menu */}
-                <button
+      {/* Mobile Menu with Backdrop rendered in portal to avoid stacking context issues */}
+      {typeof document !== "undefined" && isMobileMenuOpen
+        ? createPortal(
+            <AnimatePresence>
+              <>
+                {/* Backdrop (clicking it closes the menu) */}
+                <motion.div
+                  variants={backdropVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  aria-label="Close menu"
-                  className="absolute top-4 right-4 p-2 rounded-md bg-muted hover:bg-muted/80"
+                  className="fixed inset-0 bg-black/40 backdrop-blur-sm lg:hidden z-40 pointer-events-auto"
+                />
+
+                {/* Mobile Menu Slide rendered above navbar */}
+                <motion.div
+                  variants={menuVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="fixed top-20 right-0 bottom-0 w-full max-w-xs bg-background shadow-2xl lg:hidden z-[140] overflow-y-auto pointer-events-auto"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <X className="w-5 h-5" />
-                </button>
-                {/* Navigation Links */}
-                <div className="space-y-1">
-                  {navLinks.map((link, index) => (
+                  <div className="p-6 space-y-4 relative">
+                    {/* Internal close button */}
+                    <button
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      aria-label="Close menu"
+                      className="absolute top-4 right-4 p-2 rounded-md bg-muted hover:bg-muted/80"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                    <div className="space-y-1">
+                      {navLinks.map((link, index) => (
+                        <motion.div
+                          key={link.path}
+                          custom={index}
+                          variants={itemVariants}
+                          initial="hidden"
+                          animate="visible"
+                        >
+                          <Link
+                            to={link.path}
+                            data-scroll-top
+                            className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                              isActive(link.path)
+                                ? "bg-primary/10 text-primary border-l-4 border-primary"
+                                : "text-foreground hover:bg-secondary"
+                            }`}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {link.name}
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
+
                     <motion.div
-                      key={link.path}
-                      custom={index}
+                      custom={navLinks.length}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="h-px bg-border my-4"
+                    />
+
+                    <motion.div
+                      custom={navLinks.length + 1}
                       variants={itemVariants}
                       initial="hidden"
                       animate="visible"
                     >
-                      <Link
-                        to={link.path}
-                        data-scroll-top
-                        className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                          isActive(link.path)
-                            ? "bg-primary/10 text-primary border-l-4 border-primary"
-                            : "text-foreground hover:bg-secondary"
-                        }`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {link.name}
-                      </Link>
+                      <Button asChild className="w-full bg-primary hover:bg-primary/90 mb-3">
+                        <Link to="/booking" data-scroll-top onClick={() => setIsMobileMenuOpen(false)}>
+                          Book Table
+                        </Link>
+                      </Button>
                     </motion.div>
-                  ))}
-                </div>
 
-                {/* Divider */}
-                <motion.div
-                  custom={navLinks.length}
-                  variants={itemVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="h-px bg-border my-4"
-                />
-
-                {/* Action Buttons */}
-                <motion.div
-                  custom={navLinks.length + 1}
-                  variants={itemVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  <Button asChild className="w-full bg-primary hover:bg-primary/90 mb-3">
-                    <Link to="/booking" data-scroll-top onClick={() => setIsMobileMenuOpen(false)}>
-                      Book Table
-                    </Link>
-                  </Button>
+                    <motion.div
+                      custom={navLinks.length + 2}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                    >
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                      >
+                        <Link to="/order" data-scroll-top onClick={() => setIsMobileMenuOpen(false)}>
+                          Order Online
+                        </Link>
+                      </Button>
+                    </motion.div>
+                  </div>
                 </motion.div>
-
-                <motion.div
-                  custom={navLinks.length + 2}
-                  variants={itemVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                  >
-                    <Link to="/order" data-scroll-top onClick={() => setIsMobileMenuOpen(false)}>
-                      Order Online
-                    </Link>
-                  </Button>
-                </motion.div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+              </>
+            </AnimatePresence>,
+            document.body,
+          )
+        : null}
     </nav>
   );
 };
