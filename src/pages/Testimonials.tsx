@@ -104,7 +104,7 @@ const Testimonials = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-12">
             <div className="text-center">
-              <div className="text-5xl font-bold text-primary mb-2">4.9</div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-2">4.9</div>
               <div className="flex items-center justify-center mb-2">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
@@ -116,11 +116,11 @@ const Testimonials = () => {
               <div className="text-sm text-muted-foreground">Average Rating</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-bold text-primary mb-2">900+</div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-2">2,500+</div>
               <div className="text-sm text-muted-foreground">Happy Customers</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-bold text-primary mb-2">98%</div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-2">98%</div>
               <div className="text-sm text-muted-foreground">
                 Would Recommend
               </div>
