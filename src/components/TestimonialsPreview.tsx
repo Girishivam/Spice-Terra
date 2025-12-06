@@ -47,9 +47,9 @@ const TestimonialsPreview = () => {
               className="hover-lift animate-fade-in-up border-border/50"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <CardContent className="p-6 space-y-4">
-                <Quote className="w-10 h-10 text-accent/30" />
-                <p className="text-muted-foreground italic leading-relaxed">
+              <CardContent className="p-6 relative">
+                <Quote className="w-6 h-6 text-accent/30 absolute top-6 left-6" />
+                <p className="text-sm text-muted-foreground italic leading-relaxed mb-4 pt-8 pl-2">
                   "{testimonial.comment}"
                 </p>
                 <div className="flex items-center space-x-1 mb-2">
