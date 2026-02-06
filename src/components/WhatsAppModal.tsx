@@ -24,7 +24,7 @@ const WhatsAppModal = ({ isOpen, onClose, orderData }: WhatsAppModalProps) => {
   const [message, setMessage] = useState("");
   const [hasOrder, setHasOrder] = useState(false);
 
-  const restaurantPhone = "6394993583"; // Replace with your actual phone number
+  const restaurantPhone = "6394789645"; // Replace with your actual phone number
   const restaurantName = "Spice terra";
 
   useEffect(() => {
