@@ -4,7 +4,7 @@ import { useMetaTags } from "@/hooks/use-meta-tags";
 
 const NotFound = () => {
   useMetaTags({
-    title: "Page Not Found | Spice Terra",
+    title: "Page Not Found | Spice terra",
     description: "Sorry, the page you are looking for does not exist.",
   });
 

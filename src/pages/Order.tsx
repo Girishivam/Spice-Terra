@@ -23,7 +23,7 @@ interface CartItem {
 
 const Order = () => {
   useMetaTags({
-    title: "Order Online | Spice Terra",
+    title: "Order Online | Spice terra",
     description:
       "Order your favorite authentic Indian dishes online for delivery to your doorstep.",
   });

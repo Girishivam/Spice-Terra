@@ -8,7 +8,7 @@ import { useMetaTags } from "@/hooks/use-meta-tags";
 
 const Index = () => {
   useMetaTags({
-    title: "Spice Terra | Authentic Indian Restaurant",
+    title: "Spice terra | Authentic Indian Restaurant",
     description:
       "Experience authentic Indian cuisine at Spice Terra. Dine in, book a table, or order online for delivery.",
   });

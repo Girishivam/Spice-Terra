@@ -6,9 +6,9 @@ import { useMetaTags } from "@/hooks/use-meta-tags";
 
 const Testimonials = () => {
   useMetaTags({
-    title: "Testimonials | Spice Terra",
+    title: "Testimonials | Spice terra",
     description:
-      "Read authentic reviews and testimonials from our satisfied customers about their dining experience at Spice Terra.",
+      "Read authentic reviews and testimonials from our satisfied customers about their dining experience at Spice terra.",
   });
   const allTestimonials = [
     {

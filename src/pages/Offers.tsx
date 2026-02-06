@@ -9,9 +9,9 @@ import { useMetaTags } from "@/hooks/use-meta-tags";
 
 const Offers = () => {
   useMetaTags({
-    title: "Special Offers | Spice Terra",
+    title: "Special Offers | Spice terra",
     description:
-      "Discover amazing deals and exclusive offers at Spice Terra. Save on your favorite Indian dishes!",
+      "Discover amazing deals and exclusive offers at Spice terra. Save on your favorite Indian dishes!",
   });
   const specialOffers = [
     {
