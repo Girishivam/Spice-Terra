@@ -6,7 +6,7 @@ import WhatsAppModal from "./WhatsAppModal";
 import WhatsAppIcon from "./WhatsAppIcon";
 
 const FloatingContactCTA = () => {
-  const restaurantPhone = "+6394789645"; // Replace with your actual phone
+  const restaurantPhone = "+7570904130"; // Replace with your actual phone
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false);
 
   const contacts = [
